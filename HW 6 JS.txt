@@ -3,36 +3,30 @@
 Наприклад, якщо даний рядок "data 48 call 9 read13 blank0a", то в масиві мають бути числа 48, 9, 13 и 0.
 Обмеження - не використовувати регулярні вирази
 
-let extractNumbers = (inputString) => {
-     let result = [];
-    let currentNumber = '';
 
-    for (let char of inputString) {
-        if (!isNaN(char)) {
-           
+let extractNumbers = (inputString) => {
+    let result = [];
+    let currentNumber = '';
+    
+   for (let i = 0; i < inputString.length; i++) {
+   let char = inputString[i];
+         let number = parseInt(char,10)
+       if(!isNaN(number)){
             currentNumber += char;
-        } else if (currentNumber !== '') {
-            
-            let parsedNumber = parseInt(currentNumber, 10);
-            if (!isNaN(parsedNumber)) {
-               
-                result.push(parsedNumber);
-            }
-            currentNumber = ''; 
-        }
-    }
-  
-    if (currentNumber !== '') {
-        let parsedNumber = parseInt(currentNumber, 10);
-        if (!isNaN(parsedNumber)) {
-            result.push(parsedNumber);
-        }
-    }
+           if(currentNumber ==='0' || i === inputString.length-1) {
+                result.push(parseInt(currentNumber,10));
+                currentNumber ='';
+       }
+     }
+       else if (currentNumber.length >0 ){
+           result.push(parseInt(currentNumber,10));
+           currentNumber ='';
+       } 
+     }
 
     return result;
 };
 
-
-let inputString = "Kvitova street 45, apartment 90, code 65041";
+let inputString = "000Kvitova street 45, apartment 90 code 65041 gt";
 let numbersArray = extractNumbers(inputString);
-console.log(numbersArray); 
+console.log(numbersArray);
